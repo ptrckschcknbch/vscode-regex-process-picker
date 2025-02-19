@@ -8,15 +8,29 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "regex-process-picker" is now active!');
+	console.log('Extension "regex-process-picker" is now active!');
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('regex-process-picker.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Regex Process Picker!');
+	const disposable = vscode.commands.registerCommand('regex-process-picker.pickProcessMatchingRegex', async () => {
+		const { default: psList } = await import("ps-list");
+		const regex = new RegExp("");
+
+		const processes = await psList();
+		const processesFiltered = processes.filter(p => regex.test(p.name));
+		const processesShown = processesFiltered.map(p => {return { label: p.name, description: p.pid.toString(), detail: p.cmd };});
+
+        const selection = await vscode.window.showQuickPick(processesShown, {
+            placeHolder: 'Select the process to attach to',
+            matchOnDetail: true
+        });
+
+        if (selection) {
+            vscode.window.showInformationMessage(`Selected: ${selection.label}`);
+        } else {
+            vscode.window.showWarningMessage('No process selected.');
+        }
 	});
 
 	context.subscriptions.push(disposable);
