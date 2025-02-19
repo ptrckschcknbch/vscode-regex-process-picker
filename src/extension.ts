@@ -28,7 +28,7 @@ export function activate(context: vscode.ExtensionContext) {
         } 
 
 		vscode.window.showWarningMessage('No process selected.');
-		return "";
+		return undefined;
         
 	});
 
