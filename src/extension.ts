@@ -23,7 +23,6 @@ export function activate(context: vscode.ExtensionContext) {
         });
 
         if (selection) {
-            vscode.window.showInformationMessage(`Selected: ${selection.label}`);
 			return selection.description;
         } 
 
