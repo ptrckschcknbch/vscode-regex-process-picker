@@ -17,7 +17,18 @@
         "command": "regex-process-picker.pickProcessMatchingRegex",
         "title": "pickProcessMatchingRegex"
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "Regex Process Picker",
+      "properties": {
+        "regex-process-picker.regex": {
+          "type": "string",
+          "default": "",
+          "description": "Regular expression for filtering the processes"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

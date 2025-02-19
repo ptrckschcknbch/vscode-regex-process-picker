@@ -15,11 +15,17 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	const disposable = vscode.commands.registerCommand('regex-process-picker.pickProcessMatchingRegex', async () => {
 		const { default: psList } = await import("ps-list");
-		const regex = new RegExp("");
+		let processes = await psList();
 
-		const processes = await psList();
-		const processesFiltered = processes.filter(p => regex.test(p.name));
-		const processesShown = processesFiltered.map(p => {return { label: p.name, description: p.pid.toString(), detail: p.cmd };});
+		const config = vscode.workspace.getConfiguration('regex-process-picker');
+		const configRegex = config.get<string>('regex'); 
+
+		if (configRegex !== undefined) {
+			const regex = new RegExp(configRegex);
+			processes = processes.filter(p => regex.test(p.name));
+		}
+    
+		const processesShown = processes.map(p => {return { label: p.name, description: p.pid.toString(), detail: p.cmd };});
 
         const selection = await vscode.window.showQuickPick(processesShown, {
             placeHolder: 'Select the process to attach to',
@@ -28,9 +34,12 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (selection) {
             vscode.window.showInformationMessage(`Selected: ${selection.label}`);
-        } else {
-            vscode.window.showWarningMessage('No process selected.');
-        }
+			return selection.description;
+        } 
+
+		vscode.window.showWarningMessage('No process selected.');
+		return "";
+        
 	});
 
 	context.subscriptions.push(disposable);
