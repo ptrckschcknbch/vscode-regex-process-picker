@@ -6,13 +6,10 @@ function filterProcessesForRegexList(
   regexList: string[]
 ): ProcessDescriptor[] {
   return processes.filter((p: ProcessDescriptor): boolean => {
-    for (let regexString of regexList) {
+    return regexList.some((regexString: string): boolean => {
       const regex = new RegExp(regexString);
-      if (regex.test(p.name)) {
-        return true;
-      }
-    }
-    return false;
+      return regex.test(p.name);
+    });
   });
 }
 
@@ -53,20 +50,20 @@ export function activate(context: vscode.ExtensionContext) {
   const numberOfRegexLists = 5;
 
   for (let ruleIndex = 1; ruleIndex <= numberOfRegexLists; ruleIndex++) {
-  const disposable = vscode.commands.registerCommand(
+    const disposable = vscode.commands.registerCommand(
       "regex-process-picker.pickProcessMatchingRegexList" + ruleIndex,
-    async (): Promise<string | undefined> => {
-      const config: vscode.WorkspaceConfiguration =
-        vscode.workspace.getConfiguration("regex-process-picker");
+      async (): Promise<string | undefined> => {
+        const config: vscode.WorkspaceConfiguration =
+          vscode.workspace.getConfiguration("regex-process-picker");
 
-      return getRunningProcessesMatchingRegexList(
+        return getRunningProcessesMatchingRegexList(
           config.get<string[]>("regexList" + ruleIndex),
-        config.get<boolean>("skipUserDialogIfOnlyOneOption")
-      );
-    }
-  );
+          config.get<boolean>("skipUserDialogIfOnlyOneOption")
+        );
+      }
+    );
 
-  context.subscriptions.push(disposable);
+    context.subscriptions.push(disposable);
   }
 }
 
