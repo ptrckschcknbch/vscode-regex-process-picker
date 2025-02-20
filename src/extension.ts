@@ -1,37 +1,41 @@
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
 export function activate(context: vscode.ExtensionContext) {
-	console.log('Extension "regex-process-picker" is now active!');
+  console.log('Extension "regex-process-picker" is now active!');
 
-	const disposable = vscode.commands.registerCommand('regex-process-picker.pickProcessMatchingRegex', async () => {
-		const { default: psList } = await import("ps-list");
-		let processes = await psList();
+  const disposable = vscode.commands.registerCommand(
+    "regex-process-picker.pickProcessMatchingRegex",
+    async () => {
+      const { default: psList } = await import("ps-list");
+      let processes = await psList();
 
-		const config = vscode.workspace.getConfiguration('regex-process-picker');
-		const configRegex = config.get<string>('regex'); 
+      const config = vscode.workspace.getConfiguration("regex-process-picker");
+      const configRegex = config.get<string>("regex");
 
-		if (configRegex !== undefined) {
-			const regex = new RegExp(configRegex);
-			processes = processes.filter(p => regex.test(p.name));
-		}
-    
-		const processesShown = processes.map(p => {return { label: p.name, description: p.pid.toString(), detail: p.cmd };});
+      if (configRegex !== undefined) {
+        const regex = new RegExp(configRegex);
+        processes = processes.filter((p) => regex.test(p.name));
+      }
 
-        const selection = await vscode.window.showQuickPick(processesShown, {
-            placeHolder: 'Select the process to attach to',
-            matchOnDetail: true
-        });
+      const processesShown = processes.map((p) => {
+        return { label: p.name, description: p.pid.toString(), detail: p.cmd };
+      });
 
-        if (selection) {
-			return selection.description;
-        } 
+      const selection = await vscode.window.showQuickPick(processesShown, {
+        placeHolder: "Select the process to attach to",
+        matchOnDetail: true,
+      });
 
-		vscode.window.showWarningMessage('No process selected.');
-		return undefined;
-        
-	});
+      if (selection) {
+        return selection.description;
+      }
 
-	context.subscriptions.push(disposable);
+      vscode.window.showWarningMessage("No process selected.");
+      return undefined;
+    }
+  );
+
+  context.subscriptions.push(disposable);
 }
 
 export function deactivate() {}
