@@ -9,12 +9,21 @@ export function activate(context: vscode.ExtensionContext) {
       const { default: psList } = await import("ps-list");
       let processes = await psList();
 
-      const config = vscode.workspace.getConfiguration("regex-process-picker");
-      const configRegex = config.get<string>("regex");
+      const config: vscode.WorkspaceConfiguration =
+        vscode.workspace.getConfiguration("regex-process-picker");
+      const configRegexList: string[] | undefined =
+        config.get<string[]>("regexList");
 
-      if (configRegex !== undefined) {
-        const regex = new RegExp(configRegex);
-        processes = processes.filter((p) => regex.test(p.name));
+      if (configRegexList !== undefined) {
+        processes = processes.filter((p) => {
+          for (let regexString of configRegexList) {
+            const regex = new RegExp(regexString);
+            if (regex.test(p.name)) {
+              return true;
+            }
+          }
+          return false;
+        });
       }
 
       const processesShown = processes.map((p) => {
