@@ -26,6 +26,13 @@ export function activate(context: vscode.ExtensionContext) {
         });
       }
 
+      if (
+        config.get<boolean>("skipUserDialogIfOnlyOneOption") &&
+        processes.length === 1
+      ) {
+        return processes[0].pid.toString();
+      }
+
       const processesShown = processes.map((p) => {
         return { label: p.name, description: p.pid.toString(), detail: p.cmd };
       });
