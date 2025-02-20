@@ -1,10 +1,13 @@
 import psList, { ProcessDescriptor } from "ps-list-commonjs";
 import * as vscode from "vscode";
 
-function filterProcessesForRegexList(
+export function filterProcessesForRegexList(
   processes: ProcessDescriptor[],
   regexList: string[]
 ): ProcessDescriptor[] {
+  if (regexList.length <= 0) {
+    return processes;
+  }
   return processes.filter((p: ProcessDescriptor): boolean => {
     return regexList.some((regexString: string): boolean => {
       const regex = new RegExp(regexString);
