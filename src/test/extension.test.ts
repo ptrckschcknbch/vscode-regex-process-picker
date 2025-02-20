@@ -4,9 +4,31 @@ import { ProcessDescriptor } from "ps-list-commonjs";
 import * as vscode from "vscode";
 import { filterProcessesForRegexList } from "../extension";
 
-suite("Extension Test Suite", () => {
-  vscode.window.showInformationMessage("Start all tests.");
+suite("Activate Test Suite", () => {
+  test("Command registration", async () => {
+    await vscode.extensions
+      .getExtension("ptrck.regex-process-picker")
+      ?.activate();
+    const commands = await vscode.commands.getCommands(true);
+    assert.ok(
+      commands.includes("regex-process-picker.pickProcessMatchingRegexList1")
+    );
+    assert.ok(
+      commands.includes("regex-process-picker.pickProcessMatchingRegexList2")
+    );
+    assert.ok(
+      commands.includes("regex-process-picker.pickProcessMatchingRegexList3")
+    );
+    assert.ok(
+      commands.includes("regex-process-picker.pickProcessMatchingRegexList4")
+    );
+    assert.ok(
+      commands.includes("regex-process-picker.pickProcessMatchingRegexList5")
+    );
+  });
+});
 
+suite("Regex Matching Test Suite", () => {
   const processList: ProcessDescriptor[] = [
     { pid: 0, name: "Process1", ppid: 0 },
     { pid: 0, name: "Process2", ppid: 0 },
