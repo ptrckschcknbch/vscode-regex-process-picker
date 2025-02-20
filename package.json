@@ -14,8 +14,24 @@
   "contributes": {
     "commands": [
       {
-        "command": "regex-process-picker.pickProcessMatchingRegexList",
-        "title": "pickProcessMatchingRegexList"
+        "command": "regex-process-picker.pickProcessMatchingRegexList1",
+        "title": "pickProcessMatchingRegexList1"
+      },
+      {
+        "command": "regex-process-picker.pickProcessMatchingRegexList2",
+        "title": "pickProcessMatchingRegexList2"
+      },
+      {
+        "command": "regex-process-picker.pickProcessMatchingRegexList3",
+        "title": "pickProcessMatchingRegexList3"
+      },
+      {
+        "command": "regex-process-picker.pickProcessMatchingRegexList4",
+        "title": "pickProcessMatchingRegexList4"
+      },
+      {
+        "command": "regex-process-picker.pickProcessMatchingRegexList5",
+        "title": "pickProcessMatchingRegexList5"
       }
     ],
     "configuration": {
@@ -27,9 +43,41 @@
           "description": "Whether to skip the user dialog if only one process matches the regular expression.",
           "default": false
         },
-        "regex-process-picker.regexList": {
+        "regex-process-picker.regexList1": {
           "type": "array",
-          "description": "A list with regular expressions for filtering the processes. A process will be selected if any of the regular expressions matches.",
+          "description": "A list with regular expressions used by pickProcessMatchingRegexList1. A process will be selected if any of the regular expressions matches.",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "regex-process-picker.regexList2": {
+          "type": "array",
+          "description": "A list with regular expressions used by pickProcessMatchingRegexList2. A process will be selected if any of the regular expressions matches.",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "regex-process-picker.regexList3": {
+          "type": "array",
+          "description": "A list with regular expressions used by pickProcessMatchingRegexList3. A process will be selected if any of the regular expressions matches.",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "regex-process-picker.regexList4": {
+          "type": "array",
+          "description": "A list with regular expressions used by pickProcessMatchingRegexList4. A process will be selected if any of the regular expressions matches.",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "regex-process-picker.regexList5": {
+          "type": "array",
+          "description": "A list with regular expressions used by pickProcessMatchingRegexList5. A process will be selected if any of the regular expressions matches.",
           "items": {
             "type": "string"
           },
