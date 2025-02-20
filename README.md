@@ -6,7 +6,7 @@ A replacement for the built in VS Code command `processPicker`, which allows fil
 
 VS Code by default provides a command `processPicker`, which can be used in the `launch.json` file to pick the process to attach to from a list of running processes. However, this list can be quite long and usually one would need to type the name of the process to get it filtered.
 
-This extension provides a command `regex-process-picker.pickProcessMatchingRegex`, which consideres the regular expression defined in setting `regex-process-picker.regex` for filtering the list of running processes.
+This extension provides a command `regex-process-picker.pickProcessMatchingRegexList`, which consideres the regular expression defined in setting `regex-process-picker.regexList` for filtering the list of running processes.
 
 Usage in `launch.json`:
 
@@ -17,7 +17,7 @@ Usage in `launch.json`:
       "name": "<Name>",
       "type": "<Type>",
       "request": "attach",
-      "processId": "${command:regex-process-picker.pickProcessMatchingRegex}"
+      "processId": "${command:regex-process-picker.pickProcessMatchingRegexList}"
     }
   ]
 }

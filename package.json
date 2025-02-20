@@ -14,8 +14,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "regex-process-picker.pickProcessMatchingRegex",
-        "title": "pickProcessMatchingRegex"
+        "command": "regex-process-picker.pickProcessMatchingRegexList",
+        "title": "pickProcessMatchingRegexList"
       }
     ],
     "configuration": {
@@ -58,7 +58,7 @@
     "typescript": "^5.7.3"
   },
   "dependencies": {
-    "ps-list": "^8.1.1"
+    "ps-list-commonjs": "^8.1.2"
   },
   "repository": {
     "type": "git",
