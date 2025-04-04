@@ -2,7 +2,7 @@
   "name": "regex-process-picker",
   "displayName": "Regex Process Picker",
   "description": "A replacement for the built in VS Code command processPicker, which allows filtering for a regular expression.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "vscode": "^1.97.0"
   },
