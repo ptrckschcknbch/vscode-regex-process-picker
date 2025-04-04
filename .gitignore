@@ -1,4 +1,5 @@
 .vscode-test/
+.DS_Store
 node_modules/
 out/
 *.vsix

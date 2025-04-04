@@ -6,6 +6,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ## [Unreleased]
 
+## [1.0.1] - 2025-02-22
+
+- Fixes an issue, where an error was shown when no process was selected.
+
 ## [1.0.0] - 2025-02-22
 
 - Initial release

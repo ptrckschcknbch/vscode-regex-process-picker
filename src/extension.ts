@@ -19,7 +19,7 @@ export function filterProcessesForRegexList(
 async function getRunningProcessesMatchingRegexList(
   regexList: string[] | undefined,
   skipUserDialogIfOnlyOneOption: boolean | undefined
-): Promise<string | undefined> {
+): Promise<string> {
   let processes = await psList();
 
   if (regexList && regexList.length > 0) {
@@ -43,8 +43,8 @@ async function getRunningProcessesMatchingRegexList(
     return selection.description;
   }
 
-  vscode.window.showWarningMessage("No process selected.");
-  return undefined;
+  // No process selected
+  throw new vscode.CancellationError();
 }
 
 export function activate(context: vscode.ExtensionContext) {
@@ -55,7 +55,7 @@ export function activate(context: vscode.ExtensionContext) {
   for (let ruleIndex = 1; ruleIndex <= numberOfRegexLists; ruleIndex++) {
     const disposable = vscode.commands.registerCommand(
       "regex-process-picker.pickProcessMatchingRegexList" + ruleIndex,
-      async (): Promise<string | undefined> => {
+      async (): Promise<string> => {
         const config: vscode.WorkspaceConfiguration =
           vscode.workspace.getConfiguration("regex-process-picker");
 

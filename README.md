@@ -44,6 +44,10 @@ None.
 
 ## Release Notes
 
+### 1.0.1
+
+Fixes an issue, where an error was shown when no process was selected.
+
 ### 1.0.0
 
 Initial release
